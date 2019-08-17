@@ -1,0 +1,19 @@
+{
+  "name": "twitchbot",
+  "version": "1.0.0",
+  "description": " A twitch bot ",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
+    "prod": "tsc && node ./build/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "express": "^4.17.1",
+    "tmi.js": "^1.4.5",
+    "ts-node-dev": "^1.0.0-pre.41"
+  }
+}
