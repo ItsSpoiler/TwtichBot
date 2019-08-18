@@ -1,5 +1,5 @@
 {
     "secrets":{
-        "ouathkey": " Go to twitchapps.com/tmi for channel oauth key."
+        "oauthkeytwitch": " Go to twitchapps.com/tmi for channel oauth key."
     }
 }

@@ -2,6 +2,7 @@ import express = require('express');
 import * as secrets from "./config/config.secrets.json";
 import * as config from "./config/config.json";
 import { DiceRoll } from "./Commands/diceRoll";
+import { SpotifyRequest } from "./Commands/spotifyRequest"
 const app: express.Application = express();
 const tmi = require("tmi.js")
 const options = {
@@ -14,13 +15,14 @@ const options = {
     },
     identity: {
         username: config.joinedChannelName,
-        password: secrets.ouathkey
+        password: secrets.oauthkeytwitch
     },
     channels: [config.joinedChannelName]
 };
 
 const client = new tmi.client(options);
 const diceRoll = new DiceRoll();
+const spotifyRequest = new SpotifyRequest();
 client.connect();
 
 client.on('connected', (address: any, port: any) => {
@@ -56,5 +58,8 @@ client.on('chat', (channel: any, user: any, message: string, self: any) => {
                 client.action("ItsSpoiler", `${user['display-name']} rolled a ${result}`);
             }
         }
+    }
+    else if(message === "!song") {
+        client.action("ItsSpoiler", spotifyRequest.getSong());
     }
 });
