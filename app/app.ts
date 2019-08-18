@@ -28,7 +28,7 @@ client.on('connected', (address: any, port: any) => {
 })
 
 client.on('chat', (channel: any, user: any, message: string, self: any) => {
-
+    message = message.toLocaleLowerCase();
     if (message === '!game') {
         client.action(config.joinedChannelName, 'I am playing a fun game.');
     }

@@ -1,6 +1,6 @@
 export class DiceRoll {
     splitCommand(command: string): Array<string> {
-        let splitCommand = command.split(" ");
+        let splitCommand = command.toLocaleLowerCase().split(" ");
         if (splitCommand[1].includes("d")) {
 
             let split: Array<string> = splitCommand[1].split("d");
