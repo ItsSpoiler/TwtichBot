@@ -35,8 +35,8 @@ client.on('chat', (channel: any, user: any, message: string, self: any) => {
     // Need to add a check for exact command ex. !diceaqwd 10 will work.
     else if (message.includes("!dice")) {
         const splitCommand: Array<string> = diceRoll.splitCommand(message);
-        const diceNumber: number = Number(splitCommand[1]);
-        const diceSides : number = Number(splitCommand[2]);
+        const diceNumber: number = Number(splitCommand[0]);
+        const diceSides : number = Number(splitCommand[1]);
         if (diceNumber < 0 || diceSides < 0)
         {
             client.action(config.joinedChannelName, 'Please only use positive numbers.');

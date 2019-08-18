@@ -2,9 +2,9 @@ export class DiceRoll {
     splitCommand(command: string): Array<string>{
         
         if(command.includes("d")){
-            // const regex = new RegExp('({\d}{1})d({\d}+)/i');
-            var splitCommand = command.split(" ");
-            var split = splitCommand[1].split("d");
+            let splitCommand = command.split(" ");
+            let split: Array<string> = splitCommand[1].split("d");
+            return split;
         }
         return command.split(" ");
     }
@@ -16,10 +16,9 @@ export class DiceRoll {
         }
         
         let diceResults: Array<number> = [];
-        for (let index = 0; index < diceSides; index++) {
+        for (let index = 0; index < diceNum; index++) {
             diceResults.push(Math.floor(Math.random() * diceSides ) + 1);
-        } 
-        console.log(diceResults);
+        }
         return Math.max(...diceResults);
         
     }
