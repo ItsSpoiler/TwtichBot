@@ -8,7 +8,7 @@ const options = {
     options: {
         debug: true
     },
-    connection : {
+    connection: {
         cluster: 'aws',
         reconnect: true,
     },
@@ -28,29 +28,33 @@ client.on('connected', (address: any, port: any) => {
 })
 
 client.on('chat', (channel: any, user: any, message: string, self: any) => {
-    
+
     if (message === '!game') {
         client.action(config.joinedChannelName, 'I am playing a fun game.');
     }
     // Need to add a check for exact command ex. !diceaqwd 10 will work.
-    else if (message.includes("!dice")) {
+    else if (message.includes("!dice ")) {
         const splitCommand: Array<string> = diceRoll.splitCommand(message);
         const diceNumber: number = Number(splitCommand[0]);
-        const diceSides : number = Number(splitCommand[1]);
-        if (diceNumber < 0 || diceSides < 0)
-        {
-            client.action(config.joinedChannelName, 'Please only use positive numbers.');
-        }
-        else
-        {
-        const result: number = diceRoll.rollDice(diceNumber, diceSides);
-        if (isNaN(result))
-        {
-            client.action(config.joinedChannelName, 'Please enter a valid number.');
-        } 
-        else {
+        const diceSides: number = Number(splitCommand[1]);
+        let result: number = NaN;
+        console.log(diceNumber);
+        if (diceNumber === 0 && diceSides > 0) {
+            console.log("I'm hit");
+            result = diceRoll.rollDice(NaN, diceSides);
             client.action("ItsSpoiler", `${user['display-name']} rolled a ${result}`);
         }
-    }
+        else if (diceNumber < 0 || diceSides < 0) {
+            client.action(config.joinedChannelName, 'Please only use positive numbers.');
+        }
+        else {
+            result = diceRoll.rollDice(diceNumber, diceSides);
+            if (isNaN(result)) {
+                client.action(config.joinedChannelName, 'Please enter a valid number.');
+            }
+            else {
+                client.action("ItsSpoiler", `${user['display-name']} rolled a ${result}`);
+            }
+        }
     }
 });
